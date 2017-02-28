@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<!--@author jakubvacek-->
+<!--Login-->
+<div id="containerDefaultFont" class="uk-text-center uk-width-3-10" >
+    <div class="uk-text-center">
+        <form class="uk-form">
+            <fieldset>
+                <legend> Login</legend>
+                <div class="uk-form-row">
+                    <input type="text" ng-model="$ctrl.nameLogin" id="input" placeholder="name" autofocus>
+                </div>
+                <div class="uk-form-row">
+                    <input required="" type="text" ng-model="$ctrl.passLogin" id="input" placeholder="password" onfocus="(this.type = 'password')"/>
+                </div>
+                <div class="uk-form-row">
+                    <a id="iconGreen" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Login</spam>" ng-click="$ctrl.login()" class="uk-icon-justify uk-icon-medium uk-icon-sign-in" ></a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

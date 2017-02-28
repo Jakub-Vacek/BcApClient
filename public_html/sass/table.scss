@@ -1,0 +1,52 @@
+@import "base.scss";
+
+#tableProgressBar {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    background-color: #ddd;
+    border-radius:  $rounded_corners_br;
+}
+
+#tabBar {
+    position: absolute;
+    left: 0px;
+    width: 1%;
+    height: 100%;
+    background-color: #0A85FF;
+    border-radius:  $rounded_corners_br;
+    font-size: $font-size;
+    color: white;
+}
+
+#tableHead { 
+    margin-left: auto;
+    margin-right: auto;
+    background: $bg_color;
+    font-size: $font-size;
+    color: $head_text_color;
+}
+#tableBody {
+    background: $bg_color;
+    font-size: $font-size;
+    //property
+    -webkit-transition-property: background-color, color;
+    -moz-transition-property: background-color, color;
+    -o-transition-property: background-color, color;
+    transition-property: background-color, color;
+    //duration
+    -webkit-transition-duration:  .2s, .5s;
+    -moz-transition-duration:  .2s, .5s;
+    -o-transition-duration:  .2s, .5s;
+    transition-duration:  .2s, .5s;
+    //timing
+    -webkit-transition-timing-function: ease-in, ease-in;
+    -moz-transition-timing-function: ease-in, ease-in;
+    -o-transition-timing-function: ease-in, ease-in;
+    transition-timing-function: ease-in, ease-in;
+    color: $text_color;
+}
+
+#tableBody:hover{
+    color: #0A85FF;
+}

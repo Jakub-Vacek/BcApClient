@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--@author jakubvacek-->
+<div class=" uk-width-9-10 uk-align-center" id="containerWithBorder">
+    <div class="uk-flex uk-flex-row uk-flex-space-between" id="tableBar" >
+        <span id = "containerTitle">
+            Datail of: {{$ctrl.todo.description}}
+        </span>
+        <!--hide button-->
+        <a id="iconRed" ui-sref="todos" id="iconRed" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Hide detail</spam>" class="uk-icon-justify uk-icon-small uk-icon-remove" ></a>
+    </div>
+    <div id="strikeout"></div>
+    <div class="uk-flex uk-flex-column uk-flex-space-between">
+        <div class="uk-flex uk-flex-row uk-flex-space-between">
+            <!--Todo info-->
+            <div class="uk-panel-box uk-text-left uk-width-4-10" id="container">
+                <a id="iconBlue" class="uk-icon-justify uk-icon-small uk-icon-list-ul" ></a>
+                <span id="containerTitle">Todo info</span>
+                <ul class="uk-list uk-list-line">
+                    <li>Description: {{$ctrl.todo.description}}</li>
+                    <li>Todo created on: {{$ctrl.todo.createdOn| date:'HH:mm, d.M.yyyy'}}</li>
+                    <li>Resolve until: {{$ctrl.todo.resolveUntil| date:'HH:mm, d.M.yyyy'}}</li>
+                    <li ng-if="$ctrl.todo.spentTime"> Spent time: {{$ctrl.todo.spentTime| date:'HH:mm'}}</li>
+                    <li ng-if="!$ctrl.todo.spentTime">Spent time: 00:00</li> 
+                    <li>Time to finish: {{$ctrl.todo.timeToFinish| date:'HH:mm'}}</li>
+                    <li>
+                        Status:
+                        <a id="iconGreen" ng-if="$ctrl.todo.status === 100" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Finished</spam>" class="uk-icon-justify uk-icon-small uk-icon-thumbs-o-up" ></a>
+                        <a id="iconRed" ng-if="$ctrl.todo.status === 0" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Not Finished</spam>" class="uk-icon-justify uk-icon-small uk-icon-thumbs-o-down" ></a>
+                        <span id="iconBlue" ng-if="$ctrl.todo.status !== 0 && $ctrl.todo.status !== 100">{{$ctrl.todo.status}}%</span>
+                    </li>
+                </ul>
+            </div>
+            <!--Project info-->
+            <div class="uk-panel-box uk-text-left uk-width-4-10" id="container">
+                <a id="iconBlue" class="uk-icon-justify uk-icon-small uk-icon-bars" ></a>
+                <span id="containerTitle">Project info</span>
+                <ul class="uk-list uk-list-line">
+                    <li>Name: {{$ctrl.todo.project.name}} </li>
+                    <li>Description: {{$ctrl.todo.project.description}}</li>
+                    <li>Project created on: {{$ctrl.todo.project.createdOn| date:'HH:mm, d.M.yyyy'}}</li>
+                    <li>Project created by: {{$ctrl.todo.project.user.username}}</li>
+                    <li>
+                        Status:
+                        <a id="iconGreen" ng-if="$ctrl.todo.project.status === 100" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Finished</spam>" class="uk-icon-justify uk-icon-small uk-icon-thumbs-o-up" ></a>
+                        <a id="iconRed" ng-if="$ctrl.todo.project.status === 0" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Not Finished</spam>" class="uk-icon-justify uk-icon-small uk-icon-thumbs-o-down" ></a>
+                        <span id="iconBlue" ng-if="$ctrl.todo.project.status !== 0 && $ctrl.todo.project.status !== 100">{{$ctrl.todo.project.status}}%</span>
+                    </li>
+                </ul>
+            </div>          
+            <!--LogedUser = SelectedUser -->
+            <div class="uk-panel-box uk-text-left uk-width-4-10" id="container">
+                <a id="iconBlue" class="uk-icon-justify uk-icon-small uk-icon-user" ></a>
+                <span id="containerTitle">Owner of project</span>
+                <ul class="uk-list uk-list-line">
+                    <li>Name: {{$ctrl.todo.project.user.username}} </li>
+                    <li>Role: {{$ctrl.todo.project.user.role}}</li>
+                    <li>Description: {{$ctrl.todo.project.user.description}}</li>
+                    <li>Account created on: {{$ctrl.todo.project.user.createdOn| date:'HH:mm, d.M.yyyy'}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

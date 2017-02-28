@@ -1,0 +1,15 @@
+@import "../bower_components/uikit/scss/uikit-variables.scss";
+@import "../bower_components/uikit/scss/uikit-mixins.scss";
+@import "../bower_components/uikit/scss/components/autocomplete.scss";
+@import "../bower_components/uikit/scss/components/datepicker.scss";
+@import "../bower_components/uikit/scss/components/form-select.scss";
+@import "../bower_components/uikit/scss/uikit.scss";
+
+$rounded_corners_br:10px;
+$rounded_corners_pad:20px;
+$bg_color: white;
+$br_color: lightgray;
+$head_text_color: black;
+$text_color: drakgray;
+$border:  1px solid $br_color; 
+$font-size: 18px;

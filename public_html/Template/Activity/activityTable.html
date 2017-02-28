@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--@author jakubvacek-->
+<div ui-view="" id="detail"></div>
+<div class="uk-panel-box uk-text-center uk-width-9-10" id="containerWithBorder">
+    <div class="uk-flex uk-flex-row uk-flex-space-between" id="containerTitleBar" >
+        <span id = "containerTitle">
+            Activity of: {{$ctrl.selectedUser.username}}
+        </span>
+        <span ng-if ="!$ctrl.activities">
+            No content
+        </span>
+        <span ng-if ="$ctrl.activities">
+            Number of elements: {{$ctrl.activities.length}}
+        </span>
+        <!--hide button-->
+        <a id="iconRed" ui-sref="home({user: $ctrl.logedUser})" id="iconRed" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Hide activity</spam>" class="uk-icon-justify uk-icon-small uk-icon-remove" ></a>
+    </div>
+    <div ng-if ="$ctrl.activities.length" id="strikeout"></div>
+    <table ng-if ="$ctrl.activities.length" class="uk-table"  >
+        <tr id="tableHead">
+            <th class="uk-text-center">
+                Time
+            </th>
+            <th class="uk-text-center">
+                User
+            </th>
+            <th class="uk-text-center">
+                Role 
+            </th>                       
+            <th class="uk-text-center">
+                Description
+            </th>
+            <th class="uk-text-center">
+                Task
+            </th>
+            <th class="uk-text-center">
+                Todo
+            </th>
+            <th class="uk-text-center">
+                Detail
+            </th>
+        </tr>
+        <tr ng-repeat=" a in $ctrl.activities"id="tableBody">
+            <td>
+                {{a.createdOn| date:'HH:mm, d.M.yyyy'}}
+            </td>
+            <td>
+                {{a.username}}
+            </td>
+            <td>
+                {{a.userRole}}
+            </td>
+            <td>
+                {{a.description}}
+            </td>
+            <td ng-if="a.projectName">
+                {{a.projectName}}
+            </td>
+            <td ng-if="!a.projectName">
+                -   
+            </td>
+            <td ng-if="a.todoDescription">
+                {{a.todoDescription}}
+            </td>
+            <td ng-if="!a.todoDescription">
+                -     
+            </td>
+            <td>
+                <a id="iconBlue" ui-sref="activityDetail" ng-click="$ctrl.getActivityDetail(a.id)" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Activity detail</spam>" class="uk-icon-justify uk-icon-small uk-icon-info" ></a>
+            </td>
+        </tr>
+    </table>
+</div>

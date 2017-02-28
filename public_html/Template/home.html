@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<!--@author jakubvacek-->
+<div class=" uk-width-4-10 uk-align-center" id="home">
+    <div class="uk-flex uk-flex-row uk-flex-space-around ">
+        <a ui-sref="projects({selectedUser:$ctrl.user, logedUser:$ctrl.user})" id="iconBlue" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Show tasks</spam>" class="uk-icon-justify uk-icon-large uk-icon-bars"></a>
+        <a ui-sref="users({logedUser:$ctrl.user})" ng-if="$ctrl.user.role === 'ADMIN'" id="iconBlue" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Show users</spam>" class="uk-icon-justify uk-icon-large uk-icon-users"></a>
+        <a ui-sref="activities({selectedUser:$ctrl.user, logedUser:$ctrl.user})" id="iconBlue" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Show my activity</spam>" class="uk-icon-justify uk-icon-large uk-icon-list-ul"></a>
+    </div>
+</div>

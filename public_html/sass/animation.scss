@@ -1,0 +1,11 @@
+@import "base.scss";
+
+/*Simple fade in/out*/
+div.ng-enter {
+    transition:0.5s linear all;
+    opacity:0;
+}
+div.ng-enter.ng-enter-active {
+    transition:0.5s linear all;
+    opacity:1;
+}

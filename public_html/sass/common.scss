@@ -1,0 +1,52 @@
+@import "base.scss";
+
+#strikeout {
+    content: " ";
+    left: 0;
+    border-bottom: 1px solid lightgray;
+    width: 100%;
+    background: $bg_color;
+}
+#home{
+    margin-top: $rounded_corners_pad*6;
+    font-size: 30px;
+}
+#tooltip{
+    font-size: 14px;
+    color: white;
+}
+#input,#select {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 1px solid gray;
+}
+#timePickerCreateTodo,#timePickerUpdateTodo,#datePickerUpdateTodo,#datePickerCreateTodo{
+    @extend #input;
+    text-align: center;
+}
+
+#barLabel{
+    text-align: center;
+}
+
+#formButtons{
+    margin-top: 20px;   
+}
+
+#switch{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#activityBar{
+    font-weight: bold;
+}
+#trackTitle{
+    font-size: 30px;
+}
+#time{
+    font-size: $font-size;
+    font-weight: bold;
+}
+

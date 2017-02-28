@@ -1,0 +1,29 @@
+{
+  "name": "Bachelor App Client",
+  "authors": [
+    "Jakub Vacek"
+  ],
+  "description": "Simple todo application in AngularJS",
+  "main": "index.html",
+  "keywords": [
+    "AngularJs",
+    "todo",
+    "UIkit",
+    "ui-router"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-animate": "^1.6.2",
+    "angular-ui-router": "^0.4.2",
+    "uikit": "^2.27.2"
+  }
+}

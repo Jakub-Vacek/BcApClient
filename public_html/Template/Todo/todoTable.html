@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--@author jakubvacek-->
+<div ui-view=""></div>
+<div class="uk-panel-box uk-text-center uk-width-9-10" id="containerWithBorder">
+    <div class="uk-flex uk-flex-row uk-flex-wrap uk-flex-space-between" id="containerTitleBar" >
+        <span id = "containerTitle"  class="uk-width-2-10">
+            {{$ctrl.activeList.name}}
+        </span>
+        <span ng-if ="!$ctrl.todos || $ctrl.todos.length == 0"class="uk-width-7-10">
+            No content
+        </span>
+        <div ng-if ="$ctrl.todos && $ctrl.todos.length != 0" class="uk-width-7-10">
+            <div id="tableProgressBar">
+                <span ng-if="$ctrl.activeList.status === 100" id="tabBar" style="width: {{$ctrl.activeList.status}}%; background-color: #6BD600;" ng-css="{ scope: 'parent', live: true }">
+                    {{$ctrl.activeList.status}}%
+                </span>
+                <span ng-if="$ctrl.activeList.status !== 0 && $ctrl.activeList.status !== 100" id="tabBar" style="width: {{$ctrl.activeList.status}}% ;" ng-css="{ scope: 'parent', live: true }">
+                    {{$ctrl.activeList.status}}%
+                </span>
+                <span ng-if="$ctrl.activeList.status === 0" id="tabBar" style="width: 100%; background-color: #BD0000;">
+                    {{$ctrl.activeList.status}}%
+                </span>                                             
+            </div>
+        </div>
+        <span class="uk-width-1-10" >
+            <!--create todo button-->
+            <a id="iconBlue" ui-sref="createTodo" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Create todo</spam>" class="uk-icon-justify uk-icon-small uk-icon-plus" ></a>
+            <!--hide button-->
+            <a id="iconRed" ui-sref="projects({selectedUser:$ctrl.selectedUser, logedUser:$ctrl.logedUser})" id="iconRed" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Hide this table</spam>" class="uk-icon-justify uk-icon-small uk-icon-remove" ></a>
+        </span>
+    </div>
+    <div ng-if ="$ctrl.todos && $ctrl.todos.length != 0" id="strikeout"></div>
+    <table ng-if ="$ctrl.todos && $ctrl.todos.length != 0" class="uk-table"  >
+        <tr id="tableHead">
+            <th class="uk-text-center">
+                Description
+            </th>
+            <th class="uk-text-center">
+                Time
+            </th>
+            <th class="uk-text-center uk-width-1-10">
+                Resolved
+            </th>
+            <th class="uk-text-center">
+                Spent time
+            </th>
+            <th class="uk-text-center">
+                Status
+            </th>
+            <th class="uk-text-center">
+                Update
+            </th>
+            <th class="uk-text-center">
+                Remove
+            </th>
+            <th class="uk-text-center">
+                Resolve
+            </th>
+            <th class="uk-text-center">
+                Track
+            </th>
+            <th class="uk-text-center">
+                Detail
+            </th>
+        </tr>
+        <tr ng-repeat=" t in $ctrl.todos"id="tableBody">
+            <td class="uk-width-1-5">
+                {{t.description}}
+            </td>
+            <td> {{t.timeToFinish| date:'HH:mm'}}</td>
+            <td class="uk-width-1-10">
+                <a id="iconGreen" ng-if="t.resolved" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Resolved</spam>" class="uk-icon-justify uk-icon-small uk-icon-thumbs-o-up" ></a>
+                <a id="iconRed" ng-if="!t.resolved" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Not resolved</spam>" class="uk-icon-justify uk-icon-small uk-icon-thumbs-o-down" ></a>
+            </td>
+            <td ng-if="t.spentTime"> {{t.spentTime|date:'HH:mm' }}</td>
+            <td ng-if="!t.spentTime">00:00</td>                         
+            <td class="uk-width-2-10">
+                <div id="tableProgressBar" >
+                    <div ng-if="t.status === 100" id="tabBar" style="width: {{t.status}}%;background-color: #6BD600;" ng-css="{ scope: 'parent', live: true }" class="uk-text-center">{{t.status}}%</div>
+                    <div ng-if="t.status !== 0 && t.status !== 100" id="tabBar" style="width: {{t.status}}%;" ng-css="{ scope: 'parent', live: true }">{{t.status}}%</div>
+                    <div ng-if="t.status === 0" id="tabBar" style="width: 100%; background-color: #BD0000;">{{t.status}}%</div>
+                </div>   
+            </td>
+            <td>
+                <a ng-if='!$ctrl.tracking'ng-click="$ctrl.todo = t" ui-sref="updateTodo" id="iconBlue" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Update todo</spam>" class="uk-icon-justify uk-icon-small uk-icon-gear" ></a>
+                <a ng-if='$ctrl.tracking'id="iconGrey" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Tracking</spam>"  class="uk-icon-justify uk-icon-small uk-icon-gear" ></a>
+
+            </td>
+            <td>
+                <a ng-if='!$ctrl.tracking'id="iconRed" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Delete todo</spam>"  ng-click="$ctrl.deleteTodoById(t.id)"class="uk-icon-justify uk-icon-small uk-icon-remove" ></a>
+                <a ng-if='$ctrl.tracking'id="iconGrey" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Tracking</spam>" class="uk-icon-justify uk-icon-small uk-icon-remove" ></a>
+            </td>
+            <td>
+                <a  id="iconGreen" ng-if="t.resolved && !$ctrl.tracking" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Restore todo</spam>"  ng-click="$ctrl.updateTodo(t, true)" class="uk-icon-justify uk-icon-small uk-icon-check-circle-o" ></a>
+                <a  id="iconRed" ng-if="!t.resolved && !$ctrl.tracking" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Finish todo</spam>"  ng-click="$ctrl.updateTodo(t, true)" class="uk-icon-justify uk-icon-small uk-icon-circle-o" ></a>
+                <a  id="iconGrey" ng-if="$ctrl.tracking" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Tracking</spam>"  class="uk-icon-justify uk-icon-small uk-icon-circle-o" ></a>
+            </td>
+            <td>
+                <a ng-if='!t.resolved && !$ctrl.tracking' ui-sref="trackTodo" id="iconBlue" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Track todo</spam>"  ng-click="$ctrl.setUpTracking(t)"class="uk-icon-justify uk-icon-small uk-icon-play-circle" ></a>
+                <a ng-if='$ctrl.tracking && !t.resolved' id="iconGrey" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Tracking" class="uk-icon-justify uk-icon-small uk-icon-play-circle" ></a>
+                <a ng-if='t.resolved && !$ctrl.tracking' id="iconGrey" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Todo is finished" class="uk-icon-justify uk-icon-small uk-icon-play-circle" ></a>
+                <a ng-if='$ctrl.tracking && t.resolved' id="iconGrey" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Tracking" class="uk-icon-justify uk-icon-small uk-icon-play-circle" ></a>
+            </td>
+            <td>
+                <a id="iconBlue" ui-sref="todoDetail" ng-click="$ctrl.getTodoDetail(t.id)" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Todo detail</spam>" class="uk-icon-justify uk-icon-small uk-icon-info" ></a>
+            </td>
+        </tr>
+    </table>
+</div>
+

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!--@author jakubvacek-->
+<div id="containerWithBorder" class="uk-width-3-10">
+    <div class="uk-text-center">
+        <form class="uk-form">
+            <fieldset>
+                <legend> Create new todo</legend>
+                <div class="uk-form-row">
+                    <input type="text" ng-model="$ctrl.descriptionCreateTodo" id="input" placeholder="description" autofocus>
+                </div>
+                <div class="uk-form-row">
+                    <div class="uk-form-icon">
+                        <i class="uk-icon-calendar"></i>
+                        <input type="text" data-uk-datepicker="" id="datePickerCreateTodo"  placeholder="resolve until"/>
+                    </div>
+                </div>
+                <div class="uk-form-row">
+                    <div class="uk-form-icon">
+                        <i class="uk-icon-clock-o"></i>
+                        <input type="text" data-uk-timepicker="{start:'1'}"  id="timePickerCreateTodo" placeholder="Time to complete">
+                    </div>                </div>
+                <div class="uk-form-row" id="switch">
+                    <a id="iconRed" ng-if="!$ctrl.switchTodo" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Unresolved</spam>"  ng-click="$ctrl.switchResolvedState()" class="uk-icon-justify uk-icon-small uk-icon-thumbs-o-down" ></a>
+                    <a id="iconGreen" ng-if="$ctrl.switchTodo" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Resolved</spam>"  ng-click="$ctrl.switchResolvedState()" class="uk-icon-justify uk-icon-small uk-icon-thumbs-o-up" ></a>
+                </div>
+                <div id="strikeout"></div>
+                <div class="uk-flex uk-flex-row uk-flex-space-around" id="formButtons" >
+                    <a id="iconRed" ui-sref="todos" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Cancel</spam>" class="uk-icon-justify uk-icon-medium uk-icon-remove" ></a>
+                    <a id="iconGreen" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Create todo</spam>"  ng-click="$ctrl.createTodo()"class="uk-icon-justify uk-icon-medium uk-icon-check" ></a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<!--@author jakubvacek-->
+<div class="uk-panel-box uk-text-center uk-width-9-10" id="header">
+    <div class="uk-flex uk-flex-row uk-flex-space-between">
+        <span id="title" >
+            ToDo
+        </span>
+        <span ng-if ="logedUser" id = "tableBarHead">                
+            <span  ng-if="$state.current.name !== 'home'">
+                <a ui-sref="home({user:logedUser})" id="iconBlue" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Home</spam>" class="uk-icon-justify uk-icon-small uk-icon-home"></a>
+                <a ui-sref="projects({selectedUser:logedUser, logedUser:logedUser})" id="iconBlue" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Show tasks</spam>" class="uk-icon-justify uk-icon-small uk-icon-bars"></a>
+                <a ui-sref="users({logedUser:logedUser})" ng-if="logedUser.role === 'ADMIN'" id="iconBlue" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Show users</spam>" class="uk-icon-justify uk-icon-small uk-icon-users"></a>
+                <a ui-sref="activities({selectedUser:logedUser,logedUser:logedUser})" id="iconBlue" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Show my activity</spam>" class="icon-justify uk-icon-small uk-icon-list-ul"></a>
+            </span>
+            <a ng-if ="logedUser" id="iconBlue" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Sing out</spam>" ng-click="logout(logedUser)" class="uk-icon-justify uk-icon-small uk-icon-sign-out"></a>
+            {{logedUser.username}}
+        </span>           
+    </div>
+    <div id="strikeout"></div>
+</div>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!--@author jakubvacek-->
+<div class=" uk-width-9-10" id="containerWithBorder">
+    <div class="uk-flex uk-flex-row uk-flex-space-between" id="containerTitleBar" >
+        <span id = "containerTitle">
+            Detail of: {{$ctrl.activity.description}}
+        </span>
+        <!--hide button-->
+        <a id="iconRed" ui-sref="activities" id="iconRed" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Hide activity</spam>" class="uk-icon-justify uk-icon-small uk-icon-remove" ></a>
+    </div>
+    <div id="strikeout"></div>
+    <div class="uk-flex uk-flex-column">
+        <div class="uk-flex uk-flex-row uk-flex-space-between">
+            <!--Basic info-->
+            <div class="uk-panel-box uk-text-left uk-width-4-10" id="container">
+                <a id="iconBlue" class="uk-icon-justify uk-icon-small uk-icon-info" ></a>
+
+                <span id="containerTitle">Basic info</span>
+                <ul class="uk-list uk-list-line">
+                    <li>Created by: {{$ctrl.activity.logedUser.username}} </li>
+                    <li>Activity created on: {{$ctrl.activity.createdOn| date:'HH:mm, d.M.yyyy'}}</li>
+                    <li>Description: {{$ctrl.activity.description}}</li>
+                </ul>
+            </div>
+            <!--LogedUser = SelectedUser -->
+            <div ng-if="$ctrl.activity.logedUser.id === $ctrl.activity.selectedUser.id"class="uk-panel-box uk-text-left uk-width-4-10" id="container">
+                <a id="iconBlue" class="uk-icon-justify uk-icon-small uk-icon-user" ></a>
+
+                <span id="containerTitle">User info</span>
+                <ul class="uk-list uk-list-line">
+                    <li>Name: {{$ctrl.activity.logedUser.username}} </li>
+                    <li>Role: {{$ctrl.activity.logedUser.role}}</li>
+                    <li>Description: {{$ctrl.activity.logedUser.description}}</li>
+                    <li>Account created on: {{$ctrl.activity.logedUser.createdOn| date:'HH:mm, d.M.yyyy'}}</li>
+
+                </ul>
+            </div>
+            <!--LogedUser != SelectedUser -->
+            <div ng-if="$ctrl.activity.logedUser.id !== $ctrl.activity.selectedUser.id"class="uk-panel-box uk-text-left uk-width-4-10" id="container">
+                <a id="iconBlue" class="uk-icon-justify uk-icon-small uk-icon-user" ></a>
+                <span id="containerTitle">Loged User info</span>
+                <ul class="uk-list uk-list-line">
+                    <li>Name: {{$ctrl.activity.logedUser.username}} </li>
+                    <li>Role: {{$ctrl.activity.logedUser.role}}</li>
+                    <li>Description: {{$ctrl.activity.logedUser.description}}</li>
+                    <li>Account created on: {{$ctrl.activity.logedUser.createdOn| date:'HH:mm, d.M.yyyy'}}</li>
+
+                </ul>
+            </div>
+               <div ng-if="$ctrl.activity.logedUser.id !== $ctrl.activity.selectedUser.id"class="uk-panel-box uk-text-left uk-width-4-10" id="container">
+                <a id="iconBlue" class="uk-icon-justify uk-icon-small uk-icon-user" ></a>
+                <span id="containerTitle">Selected User info</span>
+                <ul class="uk-list uk-list-line">
+                    <li>Name: {{$ctrl.activity.selectedUser.username}} </li>
+                    <li>Role: {{$ctrl.activity.selectedUser.role}}</li>
+                    <li>Description:{{$ctrl.activity.selectedUser.description}}</li>
+                    <li>Account created on: {{$ctrl.activity.selectedUser.createdOn| date:'HH:mm, d.M.yyyy'}}</li>
+                </ul>
+            </div>        
+        </div>
+        <div class="uk-flex uk-align-left">
+            <!--Project-->
+            <div ng-if="$ctrl.activity.project"class="uk-panel-box uk-text-left uk-width-4-10" id="container">
+                <a id="iconBlue" class="uk-icon-justify uk-icon-small uk-icon-bars" ></a>
+                <span id="containerTitle">Project info</span>
+                <ul class="uk-list uk-list-line">
+                    <li>Name: {{$ctrl.activity.project.name}} </li>
+                    <li>Description:{{$ctrl.activity.project.description}}</li>
+                    <li>Project created on: {{$ctrl.activity.project.createdOn| date:'HH:mm, d.M.yyyy'}}</li>
+                    <li ng-if="$ctrl.activity.selectedUser.id === $ctrl.activity.logedUser.id">Project created by: {{$ctrl.activity.logedUser.username}}</li>
+                    <li ng-if="$ctrl.activity.selectedUser.id !== $ctrl.activity.logedUser.id && $ctrl.activity.project.user.id === $ctrl.activity.logedUser.id">Project created by: {{$ctrl.activity.logedUser.username}}</li>
+                    <li ng-if="$ctrl.activity.selectedUser.id !== $ctrl.activity.logedUser.id && $ctrl.activity.project.user.id === $ctrl.activity.selectedUser.id">Project created by: {{$ctrl.activity.selectedUser.username}}</li>
+                    <li>
+                        Status:
+                        <a id="iconGreen" ng-if="$ctrl.activity.project.status === 100" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Finished</spam>" class="uk-icon-justify uk-icon-small uk-icon-thumbs-o-up" ></a>
+                        <a id="iconRed" ng-if="$ctrl.activity.project.status === 0" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Not Finished</spam>" class="uk-icon-justify uk-icon-small uk-icon-thumbs-o-down" ></a>
+                        <span id="iconBlue" ng-if="$ctrl.activity.project.status !== 0 && $ctrl.activity.project.status !== 100">{{$ctrl.activity.project.status}}%</span>
+                    </li>
+                </ul>
+            </div>
+            <!--Todo-->
+            <div ng-if="$ctrl.activity.todo" class="uk-panel-box uk-text-left uk-width-4-10" id="container">
+                <a id="iconBlue" class="uk-icon-justify uk-icon-small uk-icon-list-ul" ></a>
+                <span id="containerTitle">Todo info</span>
+                <ul class="uk-list uk-list-line">
+                    <li>Description:{{$ctrl.activity.todo.description}}</li>
+                    <li>Todo created on: {{$ctrl.activity.todo.createdOn| date:'HH:mm, d.M.yyyy'}}</li>
+                    <li>Resolved until: {{$ctrl.activity.todo.resolveUntil| date:'HH:mm, d.M.yyyy'}}</li>
+                    <li>Spent time: {{$ctrl.activity.todo.spentTime| date:'HH:mm'}}</li>
+                    <li>Time to finish: {{$ctrl.activity.todo.timeToFinish| date:'HH:mm'}}</li>
+                    <li>
+                        Status:
+                        <a id="iconGreen" ng-if="$ctrl.activity.todo.status === 100" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Finished</spam>" class="uk-icon-justify uk-icon-small uk-icon-thumbs-o-up" ></a>
+                        <a id="iconRed" ng-if="$ctrl.activity.todo.status === 0" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Not Finished</spam>" class="uk-icon-justify uk-icon-small uk-icon-thumbs-o-down" ></a>
+                        <span id="iconBlue" ng-if="$ctrl.activity.todo.status !== 0 && $ctrl.activity.todo.status !== 100">{{$ctrl.activity.todo.status}}%</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

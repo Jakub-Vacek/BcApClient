@@ -1,0 +1,29 @@
+@import "common.scss";
+
+#container{
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius:  $rounded_corners_br;
+    padding: $rounded_corners_pad;
+    background: $bg_color;
+    color: $text_color;
+    font-size: $font-size;
+}
+
+#containerWithBorder{
+    @extend #container;
+    border: $border;
+}
+
+#containerDefaultFont{
+    @extend #containerWithBorder;
+    font-size: inherit;
+}
+
+#containerTitleBar{
+    padding: $rounded_corners_pad/2;
+}
+#containerTitle{
+    font-weight: bold;
+}

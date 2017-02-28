@@ -1,0 +1,78 @@
+<!--@author jakubvacek-->
+<div ui-view=""></div>
+<div class="uk-panel-box uk-text-center uk-width-9-10" id="containerWithBorder" >
+    <div class="uk-flex uk-flex-row uk-flex-space-between" id="containerTitleBar" >
+        <span id = "containerTitle">
+            Tasks of user: {{$ctrl.selectedUser.username}}
+        </span>
+        <span ng-if ="!$ctrl.projects || $ctrl.projects.length == 0">
+            No content
+        </span>
+        <span ng-if ="$ctrl.projectCtrl.projects && $ctrl.projects.length != 0">
+            Number of elements: {{$ctrl..projects.length}}
+        </span>
+        <span class="uk-width-1-10">
+            <!--create list button-->
+            <a id="iconBlue" ui-sref="createProject" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Create project</spam>" class="uk-icon-justify uk-icon-small uk-icon-plus" ></a>
+            <!--hide button-->
+            <a id="iconRed" ui-sref="home({user: $ctrl.logedUser})" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Hide this table</spam>" class="uk-icon-justify uk-icon-small uk-icon-remove" ></a>
+        </span>
+    </div>
+    <div ng-if ="$ctrl.projects && $ctrl.projects.length != 0" id="strikeout"></div>
+    <table ng-if ="$ctrl.projects && $ctrl.projects.length != 0" class="uk-table"  >
+        <tr id="tableHead">
+            <th class="uk-text-center">
+                Name
+            </th>
+            <th class="uk-text-center">
+                Description
+            </th>
+            <th class="uk-text-center">
+                Created on
+            </th>
+            <th class="uk-text-center">
+                Status
+            </th>
+            <th class="uk-text-center">
+                Delete
+            </th>
+            <th class="uk-text-center">
+                ToDos
+            </th>
+            <th class="uk-text-center">
+                Detail
+            </th>
+        </tr>
+        <tr ng-repeat=" l in $ctrl.projects"id="tableBody" >
+            <td>
+                {{l.name}}
+            </td>
+            <td>
+                {{l.description}}
+            </td>
+            <td>
+                {{l.createdOn| date:'HH:mm, d.M.yyyy'}}
+            </td>
+            <td class="uk-width-2-10">
+                <div ng-if="l.status === 100" id="tableProgressBar" >
+                    <div id="tabBar" style="width: {{l.status}}%;background-color: #6BD600;" ng-css="{ scope: 'parent', live: true }" class="uk-text-center">{{l.status}}%</div>
+                </div>
+                <div ng-if="l.status !== 0 && l.status !== 100" id="tableProgressBar" >
+                    <div id="tabBar" style="width: {{l.status}}%;" ng-css="{ scope: 'parent', live: true }" class="uk-text-center">{{l.status}}%</div>
+                </div>
+                <div ng-if="l.status === 0" id="tableProgressBar" >
+                    <div id="tabBar" style="width: 100%;background-color: #BD0000;;" class="uk-text-center">{{l.status}}%</div>
+                </div>
+            </td>
+            <td>
+                <a id="iconRed" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Delete task</spam>"  ng-click="$ctrl.deleteProject(l)"class="uk-icon-justify uk-icon-small uk-icon-remove" ></a>
+            </td>
+            <td>
+                <a id="iconBlue" ui-sref="todos({activeListId:l.id, selectedUser:$ctrl.selectedUser,logedUser:$ctrl.logedUser})" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Show todos</spam>" class="uk-icon-justify uk-icon-small uk-icon-tasks" ></a>
+            </td>
+            <td>
+                <a id="iconBlue" ui-sref="projectDetail" ng-click="$ctrl.getProjectDetail(l.id)" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Project detail</spam>" class="uk-icon-justify uk-icon-small uk-icon-info" ></a>
+            </td>
+        </tr>
+    </table>
+</div>

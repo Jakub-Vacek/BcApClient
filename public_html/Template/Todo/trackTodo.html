@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<!--@author jakubvacek-->
+<div id="containerDefaultFont" class="uk-panel-box uk-text-center uk-width-7-10">
+    <p id="trackTitle" > Tracking todo: {{$ctrl.trackedTodo.description}}</p>
+    <div id="strikeout"></div>
+    <p id="time">{{$ctrl.currentTime}}</p>
+    <div id="tableProgressBar" >
+        <span ng-if="$ctrl.trackedTodo.status === 100" id="tabBar" style="width: {{$ctrl.trackedTodo.status}}%; background-color: #6BD600;" ng-css="{ scope: 'parent', live: true }">
+            {{trackedTodo.status}}%
+        </span>
+        <span ng-if="$ctrl.trackedTodo.status !== 0 && $ctrl.trackedTodo.status !== 100" id="tabBar" style="width: {{$ctrl.trackedTodo.status}}% ;" ng-css="{ scope: 'parent', live: true }">
+            {{$ctrl.trackedTodo.status}}%
+        </span>
+        <span ng-if="$ctrl.trackedTodo.status === 0" id="tabBar" style="width: 100%; background-color: #BD0000;">
+            {{$ctrl.trackedTodo.status}}%
+        </span>
+    </div>
+    <div id="strikeout" style=" margin-top: 1%; margin-bottom: 1%;"></div>
+    <a ng-if="$ctrl.tracking" id="iconRed" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Stop tracking</spam>"  ng-click="$ctrl.stopTracking()"class="uk-icon-justify uk-icon-medium uk-icon-stop-circle-o" ></a>
+</div>

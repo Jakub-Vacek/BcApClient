@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--@author jakubvacek-->
+<div ui-view=""></div>
+<div class="uk-panel-box uk-text-center uk-width-9-10" id="containerWithBorder">
+    <div class="uk-flex uk-flex-row uk-flex-space-between" id="containerTitleBar" >
+        <span id = "containerTitle">
+            Users in database
+        </span>
+        <span ng-if ="!$ctrl.users || $ctrl.users.length == 0">
+            No content
+        </span>
+        <span ng-if ="$ctrl.users && $ctrl.users.length != 1">
+            Number of elements: {{$ctrl.users.length}}
+        </span>
+        <span>
+            <!--create user button-->
+            <a ui-sref="createUser" id="iconBlue" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Create user</spam>" class="uk-icon-justify uk-icon-small uk-icon-plus" ></a>
+            <!--hide button-->
+            <a ui-sref="home({user:$ctrl.logedUser})" id="iconRed" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Hide this table</spam>" class="uk-icon-justify uk-icon-small uk-icon-remove" ></a>
+        </span>
+    </div>
+    <div ng-if ="$ctrl.users && $ctrl.users.length != 1" id="strikeout"></div>
+    <table ng-if ="$ctrl.users && $ctrl.users.length != 1" class="uk-table"  >
+        <tr id="tableHead">
+            <th class="uk-text-center">
+                Name
+            </th>
+            <th class="uk-text-center">
+                Role
+            </th>
+            <th class="uk-text-center">
+                Description
+            </th>
+            <th class="uk-text-center">
+                Account created on
+            </th>
+            <th class="uk-text-center">
+                Delete
+            </th>
+            <th class="uk-text-center">
+                Activity
+            </th>
+            <th class="uk-text-center">
+                Tasks
+            </th>
+            <th class="uk-text-center">
+                Detail
+            </th>
+        </tr>
+        <tr ng-repeat=" u in $ctrl.users"id="tableBody">
+            <td>
+                {{u.username}}
+            </td>
+            <td>
+                {{u.role}}
+            </td>
+            <td>
+                {{u.description}}
+            </td>
+            <td>
+                {{u.createdOn| date:'HH:mm, d.M.yyyy'}}
+            </td>
+            <td>
+                <a id="iconRed" ng-if="u.id != $ctrl.logedUser.id" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Delete user</spam>"  ng-click="$ctrl.deleteUser(u)"class="uk-icon-justify uk-icon-small uk-icon-remove" ></a>
+                <a id="iconGrey" ng-if="u.id == $ctrl.logedUser.id" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Delete user</spam>" class="uk-icon-justify uk-icon-small uk-icon-remove" ></a>
+            </td>
+            <td> 
+                <a id="iconGreen" ui-sref="activities({selectedUser:u, logedUser:$ctrl.logedUser})" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Show activity</spam>" class="uk-icon-justify uk-icon-small uk-icon-bars" ></a>
+            </td>
+            <td> 
+                <a id="iconBlue" ui-sref="projects({selectedUser:u, logedUser:$ctrl.logedUser})" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>Show tasks</spam>" class="uk-icon-justify uk-icon-small uk-icon-tasks" ></a>
+            </td>  
+            <td>
+                <a id="iconBlue" ui-sref="userDetail" ng-click="$ctrl.getUserDetail(u.id)" data-uk-tooltip="{pos:'bottom-right'}" title="<spam id='tooltip'>User detail</spam>" class="uk-icon-justify uk-icon-small uk-icon-info" ></a>
+            </td>
+        </tr>
+    </table>
+</div>

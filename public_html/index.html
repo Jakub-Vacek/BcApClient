@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ToDo Client</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--angular-->
+        <script src="bower_components/angular/angular.min.js" type="text/javascript"></script>
+        <!--angular-ui-router-->
+        <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js" type="text/javascript"></script>
+        <!--angular-animate-->
+        <script src="bower_components/angular-animate/angular-animate.min.js" type="text/javascript"></script>
+        <!--Jquery-->
+        <script src="bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
+        <!--uikit-->
+        <script src="bower_components/uikit/js/uikit.min.js" type="text/javascript"></script>
+        <script src="bower_components/uikit/js/components/datepicker.min.js" type="text/javascript"></script>
+        <script src="bower_components/uikit/js/components/form-select.min.js" type="text/javascript"></script>
+        <script src="bower_components/uikit/js/components/tooltip.min.js" type="text/javascript"></script>
+        <script src="bower_components/uikit/js/components/autocomplete.js" type="text/javascript"></script>
+        <script src="bower_components/uikit/js/components/timepicker.min.js" type="text/javascript"></script>
+        <!--CSS-->
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="bower_components/uikit/css/components/autocomplete.min.css" rel="stylesheet" type="text/css"/>
+        <link href="bower_components/uikit/css/uikit.min.css" rel="stylesheet" type="text/css"/>
+        <link href="bower_components/uikit/css/components/tooltip.min.css" rel="stylesheet" type="text/css"/>
+        <link href="bower_components/uikit/css/components/datepicker.min.css" rel="stylesheet" type="text/css"/>
+        <link href="bower_components/uikit/css/components/form-select.min.css" rel="stylesheet" type="text/css"/>
+        <!--JS-->
+
+        <!--core-->
+        <script src="Core/App.js" type="text/javascript"></script>
+        <!--service-->
+        <script src="Service/activityService.js" type="text/javascript"></script>
+        <script src="Service/projectService.js" type="text/javascript"></script>
+        <script src="Service/userService.js" type="text/javascript"></script>
+        <script src="Service/todoService.js" type="text/javascript"></script>
+        <script src="Service/timeService.js" type="text/javascript"></script>
+        <!--controller-->
+        <script src="Controller/appController.js" type="text/javascript"></script>
+        <!--Component-->
+        <script src="Component/projectsComponent.js" type="text/javascript"></script>
+        <script src="Component/usersComponent.js" type="text/javascript"></script>
+        <script src="Component/activitiesComponent.js" type="text/javascript"></script>
+        <script src="Component/homeComponent.js" type="text/javascript"></script>
+        <script src="Component/loginComponent.js" type="text/javascript"></script>
+        <script src="Component/todosComponent.js" type="text/javascript"></script>
+    </head>
+
+    <body ng-app="App" ng-controller="appController" >
+        <div ng-include src="'Template/header.html'"></div>
+        <div ui-view></div>
+
+<!--
+    <pre>{{$state.current.name}}</pre>
+    <pre>{{$stateParams| json}}</pre>
+-->
+</body>
+</html>
