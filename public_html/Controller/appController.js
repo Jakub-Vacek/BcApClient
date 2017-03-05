@@ -4,8 +4,7 @@ App.controller('appController', function ($state, $scope, $rootScope, $activityS
 var self = this;
     //Try to login with username and password, sets up logedUser and currentUser variables, sets up show variables (role USER can't see users table)
     this.login = function () {
-        $http.defaults.headers.common['Authorization'] = 'Basic ' + $window.btoa("Admin" + ':' + "a");
-        //$http.defaults.headers.common['Authorization'] = 'Basic ' + $window.btoa(self.nameLogin + ':' + self.passLogin);
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + $window.btoa(self.nameLogin + ':' + self.passLogin);
         $http.get('http://localhost:8080/login')
                 .then(function (response) {
                     //seting scope and storage
@@ -25,7 +24,7 @@ var self = this;
         self.nameLogin = "";
         self.passLogin = "";
     };
-    //Clears sessionStorage and sets show variables to default
+    //Ssets show variables to default
     $scope.logout = function (user) {
         $state.go('login');
         $rootScope.logedUser = null;

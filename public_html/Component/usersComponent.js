@@ -1,5 +1,32 @@
 //@author jakubvacek
 'use strict'
+App.config(function ($stateProvider) {
+    $stateProvider.state('users', {
+        url: '/users',
+        template: '<users users="$resolve.users" loged-user="$resolve.logedUser"></users>',
+        component: 'users',
+        params: {
+            logedUser: null
+        },
+        resolve: {
+            users: function ($userService) {
+                return $userService.getUsers();
+            },
+            logedUser: function ($stateParams) {
+                return $stateParams.logedUser;
+            }
+        },
+        controllerAs: '$resolve'
+    }).state('createUser', {
+        parent: 'users',
+        url: '/createUser',
+        templateUrl: 'Template/User/createUser.html'
+    }).state('userDetail', {
+        parent: 'users',
+        url: '/userDetail',
+        templateUrl: 'Template/User/userDetail.html'
+    });
+});
 angular.module('App').component('users', {
     bindings: {users: '=', logedUser: '='},
     templateUrl: 'Template/User/userTable.html',

@@ -1,4 +1,49 @@
 //@author jakubvacek
+'use strict'
+App.config(function ($stateProvider) {
+    $stateProvider.state('todos', {
+        url: '/todos',
+        template: '<todos todos="$resolve.todos" active-list="$resolve.activeList" selected-user="$resolve.selectedUser" loged-user="$resolve.logedUser"></todos>',
+        component: 'todos',
+        params: {
+            activeListId: null,
+            selectedUser: null,
+            logedUser: null
+        },
+        resolve: {
+            todos: function ($todoService, $stateParams) {
+                return $todoService.getTodosByProject($stateParams.activeListId)
+            },
+            activeList: function ($projectService, $stateParams) {
+                return $projectService.getProjectById($stateParams.activeListId)
+            },
+            selectedUser: function ($stateParams) {
+                return $stateParams.selectedUser;
+            },
+            logedUser: function ($stateParams) {
+                return $stateParams.logedUser;
+            }
+        },
+        controllerAs: '$resolve'
+    }).state('createTodo', {
+        parent: 'todos',
+        url: '/createTodo',
+        templateUrl: 'Template/Todo/createTodo.html'
+                //Passing todo thru $ctrl
+    }).state('updateTodo', {
+        parent: 'todos',
+        url: '/updateTodo',
+        templateUrl: 'Template/Todo/updateTodo.html',
+    }).state('trackTodo', {
+        parent: 'todos',
+        url: '/trackingTodo',
+        templateUrl: 'Template/Todo/trackTodo.html',
+    }).state('todoDetail', {
+        parent: 'todos',
+        url: '/todoDetail',
+        templateUrl: 'Template/Todo/todoDetail.html'
+    });
+});
 angular.module('App').component('todos', {
     bindings: {todos: '=', activeList: '=', selectedUser: '=', logedUser: '='},
     templateUrl: 'Template/Todo/todoTable.html',
@@ -133,19 +178,19 @@ angular.module('App').component('todos', {
                 self.currentTime = self.time.toLocaleTimeString();
             }, 1000);
         };
-        
+
         //Stoping timer on destroy
         this.$onDestroy = function () {
             if (self.tracking) {
-            if (angular.isDefined(self.timer)) {
-                $interval.cancel(self.timer);
-            }
-            self.tracking = false;
-            var trackedTodo = $timeService.stopTracking(self.trackedTodo, self.time);
-            $todoService.updateTodo(self.activeList.id, trackedTodo).then(function (response) {
-                self.updateActiveList();
-                $activityService.createActivity(self.activeList.id, self.logedUser.id, self.selectedUser.id, trackedTodo.id, "Stop tracking todo");
-            });
+                if (angular.isDefined(self.timer)) {
+                    $interval.cancel(self.timer);
+                }
+                self.tracking = false;
+                var trackedTodo = $timeService.stopTracking(self.trackedTodo, self.time);
+                $todoService.updateTodo(self.activeList.id, trackedTodo).then(function (response) {
+                    self.updateActiveList();
+                    $activityService.createActivity(self.activeList.id, self.logedUser.id, self.selectedUser.id, trackedTodo.id, "Stop tracking todo");
+                });
             }
         };
     }

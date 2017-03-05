@@ -1,4 +1,34 @@
 //@author jakubvacek
+'use strict'
+App.config(function ($stateProvider) {
+    $stateProvider.state('projects', {
+        url: '/projects',
+        template: '<projects projects="$resolve.projects" selected-user="$resolve.selectedUser" loged-user="$resolve.logedUser"></projects>',
+        component: 'projects',
+        params: {
+            selectedUser: null,
+            logedUser: null
+        },
+        resolve: {
+            projects: function ($projectService, $stateParams) {
+                return $projectService.getProjectsOfUser($stateParams.selectedUser)
+            },
+            selectedUser: function ($stateParams) {
+                return $stateParams.selectedUser;
+            }, logedUser: function ($stateParams) {
+                return $stateParams.logedUser;
+            }
+        },
+    }).state('createProject', {
+        parent: 'projects',
+        url: '/createProject',
+        templateUrl: 'Template/Project/createProject.html'
+    }).state('projectDetail', {
+        parent: 'projects',
+        url: '/projectDetail',
+        templateUrl: 'Template/Project/projectDetail.html'
+    });
+});
 angular.module('App').component('projects', {
     bindings: {projects: '=', selectedUser: '=', logedUser: '='},
     templateUrl: 'Template/Project/projectTable.html',
