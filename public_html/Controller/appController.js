@@ -1,7 +1,8 @@
 //@author jakubvacek
 'use strict'
-App.controller('appController', function ($state, $scope, $rootScope, $activityService, $http, $window) {
-var self = this;
+App.controller('appController', function ($notifyService, $state, $scope, $rootScope, $activityService, $http, $window) {
+    var self = this;
+    var uiKit = $rootScope.$uiKit;
     //Try to login with username and password, sets up logedUser and currentUser variables, sets up show variables (role USER can't see users table)
     this.login = function () {
         $http.defaults.headers.common['Authorization'] = 'Basic ' + $window.btoa(self.nameLogin + ':' + self.passLogin);
@@ -10,26 +11,23 @@ var self = this;
                     //seting scope and storage
                     $rootScope.logedUser = response.data;
                     //seting views
-                    $state.go('home',{user:response.data});
+                    $state.go('home', {user: response.data});
                     //creating activity
-                    $activityService.createActivity(null, response.data.id,response.data.id, null, "Login");
+                    $activityService.createActivity(null, response.data.id, response.data.id, null, "Login");
+                    $notifyService.notify('User ' + response.data.username + ' loged in', "success");
                 }, function (response) {
-                    console.error("error in login, status: " + response.status);
-                    if (response.status === 401) {
-                        alert("Wrong username or password");
-                    } else {
-                        alert("Something went wrong - try again");
-                    }
+                    $notifyService.notify('Wrong username or password', "danger");
                 });
         self.nameLogin = "";
         self.passLogin = "";
     };
     //Ssets show variables to default
     $scope.logout = function (user) {
+        $notifyService.notify('User ' + $rootScope.logedUser.username + ' loged out', "success");
         $state.go('login');
         $rootScope.logedUser = null;
         //log
-        $activityService.createActivity(null, user.id,user.id, null, "Logout");
+        $activityService.createActivity(null, user.id, user.id, null, "Logout");
     }
 });
 

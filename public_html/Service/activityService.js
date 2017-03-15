@@ -1,14 +1,14 @@
 //@author jakubvacek
 'use strict';
-App.service('$activityService', ['$http', function ($http) {
+App.service('$activityService', ['$http', '$notifyService', function ($http,$notifyService) {
         return {
             createActivity: function (projectId, logedUserId, selectedUserId, todoId, description, duration) {
                 var data = {"createdOn": null, "description": description, "id": null, "duration": duration};
                 var params = {projectId: projectId, logedUserId: logedUserId, selectedUserId: selectedUserId, todoId: todoId};
                 $http.put('http://localhost:8080/activity', data, {params: params})
-                        .then(function (response) {
-                        }, function (response) {
-                            alert(response.status)
+                        .then(function () {
+                        }, function () {
+                            $notifyService.notify('Unable to create activity', "danger");
                         });
             },
             getActivitiesOfUser: function (user) {
@@ -16,7 +16,7 @@ App.service('$activityService', ['$http', function ($http) {
                         .then(function (response) {
                             return response.data;
                         }, function (response) {
-                            alert(response.status)
+                            $notifyService.notify('Unable to get activities', "danger");
                         });
             },
             getActivityDetail: function (id) {
@@ -24,7 +24,7 @@ App.service('$activityService', ['$http', function ($http) {
                         .then(function (response) {
                             return response.data;
                         }, function (response) {
-                            alert(response.status)
+                            $notifyService.notify('Unable to get activity detail', "danger");
                         });
             }
         };
