@@ -11,7 +11,7 @@ App.service('$todoService', ['$http', '$notifyService', function ($http, $notify
                         });
             },
             createTodo: function (id, data) {
-                return $http.put('http://localhost:8080/todo', data, {params: {id: id}})
+                return $http.post('http://localhost:8080/todo', data, {params: {id: id}})
                         .then(function (response) {
                             return response.data;
                         }, function (response) {
@@ -19,7 +19,7 @@ App.service('$todoService', ['$http', '$notifyService', function ($http, $notify
                         })
             },
             updateTodo: function (id, data) {
-                return $http.post('http://localhost:8080/todo', data, {params: {id: id}})
+                return $http.put('http://localhost:8080/todo', data, {params: {id: id}})
                         .then(function (response) {
                             return response.data;
                         }, function (response) {

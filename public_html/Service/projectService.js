@@ -18,7 +18,7 @@ App.service('$projectService', ['$http', '$notifyService', function ($http, $not
                         });
             },
             createProject: function (user, data) {
-                return $http.put('http://localhost:8080/project', data, {params: {id: user.id}})
+                return $http.post('http://localhost:8080/project', data, {params: {id: user.id}})
                         .then(function (response) {
                         }, function (response) {
                             $notifyService.notify('Unable to create project', "danger");

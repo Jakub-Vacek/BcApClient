@@ -5,7 +5,7 @@ App.service('$activityService', ['$http', '$notifyService', function ($http,$not
             createActivity: function (projectId, logedUserId, selectedUserId, todoId, description, duration) {
                 var data = {"createdOn": null, "description": description, "id": null, "duration": duration};
                 var params = {projectId: projectId, logedUserId: logedUserId, selectedUserId: selectedUserId, todoId: todoId};
-                $http.put('http://localhost:8080/activity', data, {params: params})
+                $http.post('http://localhost:8080/activity', data, {params: params})
                         .then(function () {
                         }, function () {
                             $notifyService.notify('Unable to create activity', "danger");

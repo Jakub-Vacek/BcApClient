@@ -11,7 +11,7 @@ App.service('$userService', ['$http', '$notifyService', function ($http, $notify
                         });
             },
             createUser: function (data) {
-                return $http.put('http://localhost:8080/user', data)
+                return $http.post('http://localhost:8080/user', data)
                         .then(function (response) {
                             return response.data;
                         }, function (response) {
