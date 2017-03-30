@@ -15,7 +15,7 @@ App.config(function ($stateProvider) {
                 return $todoService.getTodosByProject($stateParams.activeListId)
             },
             activeList: function ($projectService, $stateParams) {
-                return $projectService.getProjectById($stateParams.activeListId)
+                return $projectService.getProjectDetail($stateParams.activeListId)
             },
             selectedUser: function ($stateParams) {
                 return $stateParams.selectedUser;
@@ -63,16 +63,13 @@ angular.module('App').component('todos', {
             });
         }
 
-//         this.$onInit = function () {
-//        };
-
         //switch todo resolved state
         this.switchResolvedState = function () {
             self.switchTodo ^= true;
         };
 
         this.updateActiveList = function () {
-            $projectService.getProjectById(self.activeList.id).then(function (response) {
+            $projectService.getProjectDetail(self.activeList.id).then(function (response) {
                 self.activeList = response;
             });
         }

@@ -5,14 +5,14 @@ App.service('$activityService', ['$http', '$notifyService', function ($http,$not
             createActivity: function (projectId, logedUserId, selectedUserId, todoId, description, duration) {
                 var data = {"createdOn": null, "description": description, "id": null, "duration": duration};
                 var params = {projectId: projectId, logedUserId: logedUserId, selectedUserId: selectedUserId, todoId: todoId};
-                $http.post('http://localhost:8080/activity', data, {params: params})
+                $http.post('http://localhost:8080/activities', data, {params: params})
                         .then(function () {
                         }, function () {
                             $notifyService.notify('Unable to create activity', "danger");
                         });
             },
             getActivitiesOfUser: function (user) {
-                return $http.get('http://localhost:8080/activity', {params: {"id": user.id}})
+                return $http.get('http://localhost:8080/activities', {params: {"userId": user.id}})
                         .then(function (response) {
                             return response.data;
                         }, function (response) {
@@ -20,7 +20,7 @@ App.service('$activityService', ['$http', '$notifyService', function ($http,$not
                         });
             },
             getActivityDetail: function (id) {
-                return $http.get('http://localhost:8080/activityDetail', {params: {"id": id}})
+                return $http.get('http://localhost:8080/activities', {params: {"activityId": id}})
                         .then(function (response) {
                             return response.data;
                         }, function (response) {

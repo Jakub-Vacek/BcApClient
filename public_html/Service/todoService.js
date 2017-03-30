@@ -3,7 +3,7 @@
 App.service('$todoService', ['$http', '$notifyService', function ($http, $notifyService) {
         return {
             getTodosByProject: function (id) {
-                return $http.get('http://localhost:8080/todosOfProject', {params: {id: id}})
+                return $http.get('http://localhost:8080/todos', {params: {projectId: id}})
                         .then(function (response) {
                             return response.data;
                         }, function (response) {
@@ -11,7 +11,7 @@ App.service('$todoService', ['$http', '$notifyService', function ($http, $notify
                         });
             },
             createTodo: function (id, data) {
-                return $http.post('http://localhost:8080/todo', data, {params: {id: id}})
+                return $http.post('http://localhost:8080/todos', data, {params: {id: id}})
                         .then(function (response) {
                             return response.data;
                         }, function (response) {
@@ -19,7 +19,7 @@ App.service('$todoService', ['$http', '$notifyService', function ($http, $notify
                         })
             },
             updateTodo: function (id, data) {
-                return $http.put('http://localhost:8080/todo', data, {params: {id: id}})
+                return $http.put('http://localhost:8080/todos', data, {params: {id: id}})
                         .then(function (response) {
                             return response.data;
                         }, function (response) {
@@ -27,7 +27,7 @@ App.service('$todoService', ['$http', '$notifyService', function ($http, $notify
                         })
             },
             getTodoDetail: function (id) {
-                return $http.get('http://localhost:8080/todoDetail', {params: {"id": id}})
+                return $http.get('http://localhost:8080/todos', {params: {"todoId": id}})
                         .then(function (response) {
                             return response.data;
                         }, function (response) {
@@ -35,7 +35,7 @@ App.service('$todoService', ['$http', '$notifyService', function ($http, $notify
                         })
             },
             deleteTodoById: function (todoId, projectId) {
-                return $http.delete('http://localhost:8080/todo', {params: {todoId: todoId, listId: projectId}})
+                return $http.delete('http://localhost:8080/todos', {params: {todoId: todoId, listId: projectId}})
                         .then(function (response) {
                         }, function (response) {
                             $notifyService.notify('Unable to delete todo', "danger");
