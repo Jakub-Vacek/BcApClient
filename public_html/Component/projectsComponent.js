@@ -35,7 +35,7 @@ angular.module('App').component('projects', {
     controller: function ($state, $activityService, $projectService) {
         var self = this;
         this.getProjectDetail = function (id) {
-            $projectService.getProjectDetail(id).then(function (response) {
+            $projectService.getProject(id,true).then(function (response) {
                 self.project = response;
                 $("html, body").animate({scrollTop: 0}, "slow");
             });

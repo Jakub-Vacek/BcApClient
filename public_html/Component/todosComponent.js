@@ -15,7 +15,7 @@ App.config(function ($stateProvider) {
                 return $todoService.getTodosByProject($stateParams.activeListId)
             },
             activeList: function ($projectService, $stateParams) {
-                return $projectService.getProjectDetail($stateParams.activeListId)
+                return $projectService.getProject($stateParams.activeListId, false)
             },
             selectedUser: function ($stateParams) {
                 return $stateParams.selectedUser;
@@ -69,7 +69,7 @@ angular.module('App').component('todos', {
         };
 
         this.updateActiveList = function () {
-            $projectService.getProjectDetail(self.activeList.id).then(function (response) {
+            $projectService.getProject(self.activeList.id,false).then(function (response) {
                 self.activeList = response;
             });
         }

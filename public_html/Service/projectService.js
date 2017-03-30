@@ -3,7 +3,7 @@
 App.service('$projectService', ['$http', '$notifyService', function ($http, $notifyService) {
         return{
             getProjectsOfUser: function (user) {
-                return $http.get('http://localhost:8080/projects', {params: {"userId": user.id}})
+                return $http.get('http://localhost:8080/projects', {params: {userId: user.id}})
                         .then(function (response) {
                             return response.data;
                         }, function (response) {
@@ -11,21 +11,21 @@ App.service('$projectService', ['$http', '$notifyService', function ($http, $not
                         });
             },
             deleteProject: function (project) {
-                return $http.delete('http://localhost:8080/projects', {params: {"projectId": project.id}})
+                return $http.delete('http://localhost:8080/projects', {params: {projectId: project.id}})
                         .then(function (response) {
                         }, function (response) {
                             $notifyService.notify('Unable to delete project', "danger");
                         });
             },
             createProject: function (user, data) {
-                return $http.post('http://localhost:8080/projects', data, {params: {id: user.id}})
+                return $http.post('http://localhost:8080/projects', data, {params: {userId: user.id}})
                         .then(function (response) {
                         }, function (response) {
                             $notifyService.notify('Unable to create project', "danger");
                         });
             },
-            getProjectDetail: function (id) {
-                return $http.get('http://localhost:8080/projects', {params: {"projectId": id}})
+            getProject: function (id, fetchDetailInfo) {
+                return $http.get('http://localhost:8080/projects', {params: {projectId: id, "fetchDetailInfo": fetchDetailInfo}})
                         .then(function (response) {
                             return response.data;
                         }, function (response) {

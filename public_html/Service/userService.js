@@ -19,14 +19,14 @@ App.service('$userService', ['$http', '$notifyService', function ($http, $notify
                         });
             },
             deleteUser: function (id) {
-                return $http.delete('http://localhost:8080/users', {params: {"id": id}})
+                return $http.delete('http://localhost:8080/users', {params: {userId: id}})
                         .then(function (response) {
                         }, function (response) {
                             $notifyService.notify('Unable to delete user', "danger");
                         });
             },
             getUserDetail: function (id) {
-                return $http.get('http://localhost:8080/users', {params: {"userId": id}})
+                return $http.get('http://localhost:8080/users', {params: {userId: id}})
                         .then(function (response) {
                             return response.data;
                         }, function (response) {

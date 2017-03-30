@@ -12,7 +12,7 @@ App.service('$activityService', ['$http', '$notifyService', function ($http,$not
                         });
             },
             getActivitiesOfUser: function (user) {
-                return $http.get('http://localhost:8080/activities', {params: {"userId": user.id}})
+                return $http.get('http://localhost:8080/activities', {params: {userId: user.id}})
                         .then(function (response) {
                             return response.data;
                         }, function (response) {
@@ -20,7 +20,7 @@ App.service('$activityService', ['$http', '$notifyService', function ($http,$not
                         });
             },
             getActivityDetail: function (id) {
-                return $http.get('http://localhost:8080/activities', {params: {"activityId": id}})
+                return $http.get('http://localhost:8080/activities', {params: {activityId: id}})
                         .then(function (response) {
                             return response.data;
                         }, function (response) {
