@@ -1,10 +1,12 @@
 //@author jakubvacek
 'use strict'
 App.config(function ($stateProvider) {
-        $stateProvider.state('home', {
+    //Home state
+    $stateProvider.state('home', {
         url: '/home',
         template: '<home user="$resolve.user"></home>',
         component: 'home',
+        //sending loged user in paramaetrs
         params: {
             user: null
         },

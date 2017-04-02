@@ -1,10 +1,12 @@
 //@author jakubvacek
 'use strict'
 App.config(function ($stateProvider) {
+    //User state
     $stateProvider.state('users', {
         url: '/users',
         template: '<users users="$resolve.users" loged-user="$resolve.logedUser"></users>',
         component: 'users',
+        //sending loged, selected user and active project in paramaetrs
         params: {
             logedUser: null
         },
@@ -50,7 +52,7 @@ angular.module('App').component('users', {
             self.descriptionCreateUser = "";
         };
 
-        //deletes user, hides todo and list table, clear activeList and currentUser
+        //Deletes user
         this.deleteUser = function (user) {
             //deleting on client
             for (var i = 0; i < self.users.length; i++)

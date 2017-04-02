@@ -3,12 +3,12 @@
 App.controller('appController', function ($notifyService, $state, $scope, $rootScope, $activityService, $http, $window) {
     var self = this;
     var uiKit = $rootScope.$uiKit;
-    //Try to login with username and password, sets up logedUser and currentUser variables, sets up show variables (role USER can't see users table)
+    //Try to login with username and password
     this.login = function () {
         $http.defaults.headers.common['Authorization'] = 'Basic ' + $window.btoa(self.nameLogin + ':' + self.passLogin);
         $http.get('http://localhost:8080/login')
                 .then(function (response) {
-                    //seting scope and storage
+                    //seting rootscope
                     $rootScope.logedUser = response.data;
                     //seting views
                     $state.go('home', {user: response.data});
@@ -21,7 +21,7 @@ App.controller('appController', function ($notifyService, $state, $scope, $rootS
         self.nameLogin = "";
         self.passLogin = "";
     };
-    //Ssets show variables to default
+    //Logs out
     $scope.logout = function (user) {
         $notifyService.notify('User ' + $rootScope.logedUser.username + ' loged out', "success");
         $state.go('login');

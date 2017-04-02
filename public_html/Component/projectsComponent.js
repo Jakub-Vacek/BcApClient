@@ -1,14 +1,17 @@
 //@author jakubvacek
 'use strict'
 App.config(function ($stateProvider) {
+    //Projects state
     $stateProvider.state('projects', {
         url: '/projects',
         template: '<projects projects="$resolve.projects" selected-user="$resolve.selectedUser" loged-user="$resolve.logedUser"></projects>',
         component: 'projects',
+        //sending loged and selected user in paramaetrs
         params: {
             selectedUser: null,
             logedUser: null
         },
+        //using user from parameters to get list of projects
         resolve: {
             projects: function ($projectService, $stateParams) {
                 return $projectService.getProjectsOfUser($stateParams.selectedUser)
@@ -40,7 +43,7 @@ angular.module('App').component('projects', {
                 $("html, body").animate({scrollTop: 0}, "slow");
             });
         }
-        //Deletes list, hides todo table, reloads lists
+        //Deletes project
         this.deleteProject = function (l) {
             $projectService.deleteProject(l).then(function (response) {
                 //deleting on client
@@ -55,7 +58,7 @@ angular.module('App').component('projects', {
             });
         };
 
-        //Creates new list, clears the form 
+        //Creates new project, clears the form 
         this.createProject = function () {
             var data = {"id": null, "userID": self.selectedUser.id, "name": self.nameCreateProject, "description": self.descriptionCreateProject, "createdOn": null};
             $projectService.createProject(self.selectedUser, data).then(function (response) {

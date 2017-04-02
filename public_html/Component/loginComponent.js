@@ -1,6 +1,7 @@
 //@author jakubvacek
 'use strict'
 App.config(function ($stateProvider) {
+    //Login state
     $stateProvider.state('login', {
         url: '/login',
         template: '<login></login>',

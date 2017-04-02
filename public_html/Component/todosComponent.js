@@ -1,15 +1,18 @@
 //@author jakubvacek
 'use strict'
 App.config(function ($stateProvider) {
+    //Todos state
     $stateProvider.state('todos', {
         url: '/todos',
         template: '<todos todos="$resolve.todos" active-list="$resolve.activeList" selected-user="$resolve.selectedUser" loged-user="$resolve.logedUser"></todos>',
         component: 'todos',
+        //sending loged, selected user and active project in paramaetrs
         params: {
             activeListId: null,
             selectedUser: null,
             logedUser: null
         },
+        //Geting list of todos and active project
         resolve: {
             todos: function ($todoService, $stateParams) {
                 return $todoService.getTodosByProject($stateParams.activeListId)
@@ -29,7 +32,6 @@ App.config(function ($stateProvider) {
         parent: 'todos',
         url: '/createTodo',
         templateUrl: 'Template/Todo/createTodo.html'
-                //Passing todo thru $ctrl
     }).state('updateTodo', {
         parent: 'todos',
         url: '/updateTodo',
@@ -55,7 +57,8 @@ angular.module('App').component('todos', {
         this.trackedTodo;
         this.switchTodo = false;
         this.currentTime = "0:00:00"
-
+        
+        //Geting detail of todo
         this.getTodoDetail = function (id) {
             $todoService.getTodoDetail(id).then(function (response) {
                 self.todo = response;
@@ -63,18 +66,19 @@ angular.module('App').component('todos', {
             });
         }
 
-        //switch todo resolved state
+        //Switch todo resolved state
         this.switchResolvedState = function () {
             self.switchTodo ^= true;
         };
-
+        
+        //Updates active project
         this.updateActiveList = function () {
             $projectService.getProject(self.activeList.id,false).then(function (response) {
                 self.activeList = response;
             });
         }
 
-        //Creates new todo, checks if active lost exists, creates new todo, relods todos of list, clears the form
+        //Creates new todo, reloads list of todo, clears the form
         this.createTodo = function () {
             var status = 0;
             if (self.switchTodo) {
@@ -92,7 +96,7 @@ angular.module('App').component('todos', {
             $('#timePickerCreateTodo').val("");
         };
 
-        //delete todo by its id, reload todos of current list
+        //delete todo by its id, reload todos of current list and reloads active project
         this.deleteTodoById = function (id) {
             //deleting on client
             for (var i = 0; i < self.todos.length; i++)
@@ -147,7 +151,7 @@ angular.module('App').component('todos', {
         }
 
 
-        //Tracking
+        //Tracking todo
         this.stopTracking = function () {
             if (angular.isDefined(self.timer)) {
                 $interval.cancel(self.timer);
@@ -161,7 +165,7 @@ angular.module('App').component('todos', {
             $state.go('todos');
         };
 
-
+        //Setting up tracking, starts the timer
         this.setUpTracking = function (todo) {
             self.trackedTodo = todo;
             self.time = new Date();

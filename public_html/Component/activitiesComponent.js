@@ -1,12 +1,12 @@
 //@author jakubvacek
 'use strict'
 App.config(function ($stateProvider) {
-    //Activity
+    //Activity state
     $stateProvider.state('activities', {
         url: '/activities',
         template: '<activities loged-user="$resolve.logedUser"activities="$resolve.activities" selected-user="$resolve.selectedUser"></activities>',
         component: 'activities',
-        //sending user in paramaetrs
+        //sending loged and selected user in paramaetrs
         params: {
             selectedUser: null,
             logedUser: null
