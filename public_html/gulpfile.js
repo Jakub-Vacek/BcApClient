@@ -16,9 +16,7 @@ gulp.task('styles', function () {
 gulp.task('serve', function() {
   gulp.src('./')
     .pipe(webserver({
-      livereload: true,
       port: 8383,
-      directoryListing: true,
       fallback: 'index.html',
       open: true
     }));
