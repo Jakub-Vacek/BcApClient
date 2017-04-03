@@ -3,6 +3,7 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var minifyCSS = require('gulp-minify-css');
 var concat = require('gulp-concat');
+var webserver = require('gulp-webserver');
 
 gulp.task('styles', function () {
     gulp.src('sass/*.scss')
@@ -11,8 +12,18 @@ gulp.task('styles', function () {
             .pipe(minifyCSS())
             .pipe(gulp.dest('./css/'));
 });
-gulp.task('default', function () {
-    //gulp.watch('sass/**/*.scss',['styles']);
+
+gulp.task('serve', function() {
+  gulp.src('./')
+    .pipe(webserver({
+      livereload: true,
+      port: 8383,
+      directoryListing: true,
+      fallback: 'index.html',
+      open: true
+    }));
 });
+
+gulp.task('default', ['styles']);
 
 
