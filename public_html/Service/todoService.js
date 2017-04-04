@@ -13,6 +13,7 @@ App.service('$todoService', ['$http', '$notifyService', function ($http, $notify
             createTodo: function (id, data) {
                 return $http.post('http://localhost:8080/todos', data, {params: {id: id}})
                         .then(function (response) {
+                            $notifyService.notify('Todo created', "success");
                             return response.data;
                         }, function (response) {
                             $notifyService.notify('Unable to create todo', "danger");
@@ -37,6 +38,7 @@ App.service('$todoService', ['$http', '$notifyService', function ($http, $notify
             deleteTodoById: function (todoId, projectId) {
                 return $http.delete('http://localhost:8080/todos', {params: {todoId: todoId, projectId: projectId}})
                         .then(function (response) {
+                            $notifyService.notify('Todo deleted', "success");
                         }, function (response) {
                             $notifyService.notify('Unable to delete todo', "danger");
                         });

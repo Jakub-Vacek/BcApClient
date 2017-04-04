@@ -13,6 +13,7 @@ App.service('$projectService', ['$http', '$notifyService', function ($http, $not
             deleteProject: function (project) {
                 return $http.delete('http://localhost:8080/projects', {params: {projectId: project.id}})
                         .then(function (response) {
+                            $notifyService.notify('Project deleted', "success");
                         }, function (response) {
                             $notifyService.notify('Unable to delete project', "danger");
                         });
@@ -20,6 +21,7 @@ App.service('$projectService', ['$http', '$notifyService', function ($http, $not
             createProject: function (user, data) {
                 return $http.post('http://localhost:8080/projects', data, {params: {userId: user.id}})
                         .then(function (response) {
+                            $notifyService.notify('Project created', "success");
                         }, function (response) {
                             $notifyService.notify('Unable to create project', "danger");
                         });

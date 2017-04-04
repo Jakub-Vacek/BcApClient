@@ -13,6 +13,7 @@ App.service('$userService', ['$http', '$notifyService', function ($http, $notify
             createUser: function (data) {
                 return $http.post('http://localhost:8080/users', data)
                         .then(function (response) {
+                            $notifyService.notify('User created', "success");
                             return response.data;
                         }, function (response) {
                             $notifyService.notify('Unable to create user', "danger");
@@ -21,6 +22,7 @@ App.service('$userService', ['$http', '$notifyService', function ($http, $notify
             deleteUser: function (id) {
                 return $http.delete('http://localhost:8080/users', {params: {userId: id}})
                         .then(function (response) {
+                            $notifyService.notify('User deleted', "success");
                         }, function (response) {
                             $notifyService.notify('Unable to delete user', "danger");
                         });
