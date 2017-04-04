@@ -3,7 +3,8 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var minifyCSS = require('gulp-minify-css');
 var concat = require('gulp-concat');
-var webserver = require('gulp-webserver');
+var connect = require('gulp-connect');
+
 
 gulp.task('styles', function () {
     gulp.src('sass/*.scss')
@@ -13,13 +14,11 @@ gulp.task('styles', function () {
             .pipe(gulp.dest('./css/'));
 });
 
-gulp.task('serve', function() {
-  gulp.src('./')
-    .pipe(webserver({
-      port: 8383,
-      fallback: 'index.html',
-      open: true
-    }));
+gulp.task('serve', function () {
+    connect.server({
+        port: 8383,
+        host: 'localhost'
+    });
 });
 
 gulp.task('default', ['styles']);
